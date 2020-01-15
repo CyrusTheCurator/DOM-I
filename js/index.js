@@ -148,7 +148,7 @@ const newNavHome = document.querySelector("nav");
 newNavHome.prepend(home);
 
 const newNavDom = document.querySelector("nav");
-newNavDom.appendChild(navDom);
+newNavHome.appendChild(navDom);
 
 //~
 
