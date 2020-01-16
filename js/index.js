@@ -46,113 +46,86 @@ const siteContent = {
 let logo = document.getElementById("logo-img");
 logo.setAttribute("src", siteContent["nav"]["img-src"]);
 
-//nav
-let navBar = document.querySelectorAll("a");
+//anchor links
+let bananas = document.createElement("a");
+let apples = document.createElement("a");
+bananas.textContent = "Bananas";
+apples.textContent = "Apples";
+let navBarItems = document.querySelectorAll("a");
+let navBar = document.querySelector("nav");
+//loops over node list and populates anchor link text
+navBarItems.forEach((item, index) => {
+  item.textContent = siteContent.nav[`nav-item-${index + 1}`];
+  item.style.color = "green";
+});
+navBar.append(apples);
+navBar.prepend(bananas);
+apples.style.color = "green";
+bananas.style.color = "green";
 
-navBar.forEach(function(value, i) {
-  value.textContent = siteContent.nav[`nav-item-${i + 1}`];
+//h1 text
+let h1Text = document.querySelector(".cta-text h1");
+h1Text.textContent = siteContent.cta.h1;
+
+//"Get Started Button"
+let getStartedButton = document.querySelector("button");
+getStartedButton.textContent = siteContent.cta.button;
+
+//header image
+let headerImg = document.querySelector("#cta-img");
+console.log(headerImg);
+headerImg.setAttribute("src", siteContent.cta["img-src"]);
+
+//text contents array-like object
+let textContentsCollectionH4 = document.querySelectorAll(".text-content h4");
+let textContentsCollectionP = document.querySelectorAll(".text-content p");
+
+const contentKeys = Object.keys(siteContent["main-content"]);
+
+console.log(textContentsCollectionH4);
+console.log(textContentsCollectionP);
+
+//we need to remove the image link from the array for our for loops to not be broken
+contentKeys.splice(4, 1);
+console.log("Our modified keys for looping are ", contentKeys);
+
+let h4Keys = [];
+let textContentKeys = [];
+//evens get pushed to h4, odds get pushed to textContent
+for (i = 0; i < contentKeys.length; i++) {
+  if (i % 2 != 1) {
+    h4Keys.push(contentKeys[i]);
+  } else {
+    textContentKeys.push(contentKeys[i]);
+  }
+}
+console.log("h4 keys ", h4Keys);
+console.log("text keys ", textContentKeys);
+//populate h4 with content from h4 array
+textContentsCollectionH4.forEach((item, index) => {
+  item.textContent = siteContent["main-content"][h4Keys[index]];
 });
 
-//main content
-const domIsAwesome = document.querySelector("h1");
-
-domIsAwesome.textContent = siteContent.cta.h1;
-
-const domIsAwesomer = document.querySelector("h1");
-
-const codeSnippetImg = document.getElementById("cta-img");
-codeSnippetImg.src = "img/header-img.png";
-
-const buttonGetStarted = document.querySelector("button");
-buttonGetStarted.textContent = siteContent.cta.button;
-
-const features = document.querySelectorAll(".top-content .text-content h4")[0];
-features.textContent = siteContent[`main-content`][`features-h4`];
-
-const about = document.querySelectorAll(".top-content .text-content h4")[1];
-about.textContent = siteContent[`main-content`][`about-h4`];
-
-const featuresParagraph = document.querySelectorAll(
-  ".top-content .text-content p"
-)[0];
-featuresParagraph.textContent = siteContent[`main-content`][`features-content`];
-
-const aboutContent = document.querySelectorAll(
-  ".top-content .text-content p"
-)[1];
-aboutContent.textContent = siteContent[`main-content`][`about-content`];
-
-//middle img
-
-const midImg = document.getElementById("middle-img");
-midImg.src = "img/mid-page-accent.jpg";
-
-//bottom content
-
-const services = document.querySelectorAll(
-  ".bottom-content .text-content h4"
-)[0];
-services.textContent = siteContent[`main-content`][`services-h4`];
-
-const product = document.querySelectorAll(
-  ".bottom-content .text-content h4"
-)[1];
-product.textContent = siteContent[`main-content`][`product-h4`];
-
-const vision = document.querySelectorAll(".bottom-content .text-content h4")[2];
-vision.textContent = siteContent[`main-content`][`vision-h4`];
-
-const servicesParagraph = document.querySelectorAll(
-  ".bottom-content .text-content p"
-)[0];
-servicesParagraph.textContent = siteContent[`main-content`][`services-content`];
-
-const productContent = document.querySelectorAll(
-  ".bottom-content .text-content p"
-)[1];
-productContent.textContent = siteContent[`main-content`][`product-content`];
-
-const visionContent = document.querySelectorAll(
-  ".bottom-content .text-content p"
-)[2];
-visionContent.textContent = siteContent[`main-content`][`vision-content`];
-
-//contact
-
-const contact = document.querySelectorAll(".contact h4")[0];
-contact.textContent = siteContent[`contact`][`contact-h4`];
-
-const contactAddress = document.querySelectorAll(".contact p")[0];
-contactAddress.textContent = siteContent[`contact`][`address`];
-
-const contactPhone = document.querySelectorAll(".contact p")[1];
-contactPhone.textContent = siteContent[`contact`][`phone`];
-
-const contactEmail = document.querySelectorAll(".contact p")[2];
-contactEmail.textContent = siteContent[`contact`][`email`];
-
-//footer
-
-const foot = document.querySelector("footer p");
-foot.textContent = siteContent[`footer`][`copyright`];
-
-//~
-
-const home = document.createElement("a");
-home.textContent = "Home";
-
-const navDom = document.createElement("a");
-navDom.textContent = "DOM";
-
-const newNavHome = document.querySelector("nav");
-newNavHome.prepend(home);
-
-const newNavDom = document.querySelector("nav");
-newNavHome.appendChild(navDom);
-
-//~
-
-const navText = document.querySelectorAll("a");
-navText.forEach(element => {
-  element.style.color = "green";
+let middleImg = document.querySelector("#middle-img");
+middleImg.setAttribute("src", siteContent["main-content"]["middle-img-src"]);
+//populate p with content from p array
+textContentsCollectionP.forEach((item, index) => {
+  item.textContent = siteContent["main-content"][textContentKeys[index]];
 });
+
+//here's a more explicit approach
+
+let contactH4 = document.querySelector(".contact h4");
+contactH4.textContent = siteContent.contact["contact-h4"];
+
+let contactTexts = document.querySelectorAll(".contact p");
+let contactAddress = siteContent.contact.address;
+let contactPhone = siteContent.contact.phone;
+let contactEmail = siteContent.contact.email;
+
+contactTexts[0].textContent = contactAddress;
+contactTexts[1].textContent = contactPhone;
+contactTexts[2].textContent = contactEmail;
+
+let footer = document.querySelector("footer p");
+footer.textContent = siteContent.footer.copyright;
